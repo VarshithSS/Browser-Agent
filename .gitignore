@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env/
+
+# Environment Variables
+.env
+.env.local
+
+# VS Code
+.vscode/
+
+# Playwright
+playwright-report/
+test-results/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# SQLite Databases
+*.db
+
+# Pytest Cache
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Build Files
+dist/
+build/
+
+# Node Modules (future frontend)
+node_modules/
+
+# Tauri Build
+src-tauri/target/
+
+# Temporary Files
+*.tmp
+*.temp
