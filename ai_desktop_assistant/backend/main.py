@@ -1,44 +1,32 @@
+import sys
 import asyncio
 
-asyncio.set_event_loop_policy(
-    asyncio.WindowsSelectorEventLoopPolicy()
-)
+if sys.platform.startswith("win"):
+    asyncio.set_event_loop_policy(
+        asyncio.WindowsProactorEventLoopPolicy()
+    )
 
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from agent.simple_agent import (
-    run_agent,
-    initialize_browser
-)
+from tools.tool_registry import browser
+from agent.llm_agent import run_agent
 
 app = FastAPI()
 
 
-class Query(BaseModel):
-    message: str
+class UserRequest(BaseModel):
+    task: str
 
 
 @app.on_event("startup")
 async def startup_event():
-    await initialize_browser()
+    await browser.start()
 
 
-@app.post("/chat")
-async def chat(query: Query):
+@app.post("/agent")
+async def agent_endpoint(request: UserRequest):
 
-    response = await run_agent(query.message)
+    result = await run_agent(request.task)
 
-    return {
-        "response": response
-    }
-
-
-
-
-
-
-
-
-
-
+    return result

@@ -26,10 +26,22 @@ class BrowserTools:
 
     async def google_search(self, query: str):
 
-        await self.page.goto("https://www.google.com")
+        search_url = (
+            f"https://www.google.com/search?q={query}"
+        )
 
-        await self.page.fill("textarea", query)
+        await self.page.goto(search_url)
 
-        await self.page.press("textarea", "Enter")
+        return f"Searched Google for {query}"
 
-        return f"Searched Google for: {query}"
+    async def get_page_title(self):
+
+        return await self.page.title()
+
+
+
+    async def get_page_text(self):
+
+        body = await self.page.locator("body").inner_text()
+
+        return body[:5000]
